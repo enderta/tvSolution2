@@ -1,8 +1,14 @@
+
+let episodes = [];
+let shows = [];
 function setup() {
-    const episodes = getAllEpisodes();
-    makePageForEpisodes(episodes);
+    let allEpisodes =
+    getAllEpisodes();
+    makePageForEpisodes(allEpisodes);
     document.getElementById("searchInput").addEventListener("input", makePageForMatchingEpisodes);
 }
+
+console.log(shows)
 function makePageForEpisodes(episodeList) {
 
     const container = document.getElementById("episodes");
@@ -28,6 +34,26 @@ function makePageForEpisodes(episodeList) {
     const count = document.getElementById("countDisplay");
     count.innerText = `Displaying ${episodeList.length}/${getAllEpisodes().length} episodes`;
     select(episodeList);
+}
+function makePageForShows(shows) {
+    const container = document.getElementById("shows");
+    shows.forEach((show) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        const title = document.createElement("h1");
+        title.className = "title";
+        title.innerText = `${show.name}`;
+        card.appendChild(title);
+        const image = document.createElement("img");
+        image.className = "image";
+        image.src = show.image.medium;
+        card.appendChild(image);
+        const summary = document.createElement("p");
+        summary.className = "summary";
+        summary.innerHTML = show.summary;
+        card.appendChild(summary);
+        container.appendChild(card);
+    });
 }
 function makePageForMatchingEpisodes() {
     const searchInput = document.getElementById("searchInput").value;
